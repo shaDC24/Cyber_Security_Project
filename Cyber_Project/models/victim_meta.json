@@ -1,0 +1,13 @@
+{
+  "seed": 42,
+  "n_train_victim": 8000,
+  "n_test_victim": 2000,
+  "victim_linear_accuracy": 0.901,
+  "victim_cnn_accuracy": 0.965,
+  "input_shape": [
+    1,
+    28,
+    28
+  ],
+  "n_classes": 10
+}
