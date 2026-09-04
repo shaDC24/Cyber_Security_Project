@@ -1,4 +1,5 @@
 # Project 33 — Model Extraction (Stealing a Classifier)
+
 ### Real Flask HTTP prediction API + defense at the API layer
 
 Implements and evaluates model-extraction attacks against a **black-box ML
@@ -71,14 +72,18 @@ Pretrained victims (`models/victim_*.pth`) and real MNIST (`data/MNIST`) are
 already included, so you can skip training.
 
 ### Option A — one command
+
 ```bash
 python run_all.py
 ```
+
 Starts both API servers, runs both attacks (with/without defenses), writes
 `results/results.json` + 3 plots, runs the bonus analysis, then stops servers.
 
 ### Option B — manual (best for the live demo / screenshots)
+
 Three terminals, all from the project root:
+
 ```bash
 # terminal 1 — undefended production API
 python victim/victim_api.py                    # http://localhost:5000
@@ -95,6 +100,7 @@ python attacker/defense_analysis.py            # bonus diagnostic
 (Re-train the victims from scratch with `python victim/train_victims.py`.)
 
 ### The API contract ("packet / frame" details for the design report)
+
 ```
 POST /predict/linear      POST /predict/cnn
 request : {"images": [[28x28 floats in 0..1], ...]}      # batch
@@ -123,6 +129,7 @@ budget (~13% @100 → ~93% @4000). **Open-world** (pure-noise queries) stays at
 chance (~10%), showing how much a realistic query distribution matters.
 
 **Bonus — defenses (server-side, at the API layer):**
+
 - *Confidence-hiding* (`round` / `topk` / `label_only`): equation-solving
   collapses (~90% → 6–33%) because it needs exact confidences; knockoff is
   essentially unaffected (still ~90%+) because it only uses the top-1 label,
@@ -141,23 +148,17 @@ chance (~10%), showing how much a realistic query distribution matters.
 ## 4. Mapping to the report sections
 
 **Design report**
+
 - (a) *Topology:* `Attacker process ──HTTP POST image──> Victim Flask API ──JSON prediction──> Attacker`. Attacker never sees the weights.
 - (b) *Timing/strategy:* equation-solving = one non-adaptive batch of 785 queries then one offline linear solve; knockoff = `B` queries to build a transfer set then one offline training run per budget.
 - (c) *Packet/frame:* the API contract in §2 — show the request/response JSON from `demo_query.py`, including each defense variant.
 - (d) *Justification:* the `d+1`-query linear-algebra argument (equation-solving docstring) + the budget-sweep curves (knockoff needs many more queries but assumes nothing about the victim architecture).
 
 **Final report**
+
 - (a) *Steps + snapshots:* run §2 Option B; capture the two server terminals + the attacker terminal + the 3 plots.
 - (b) *Success & why:* §3 tables — equation-solving is exact because the victim truly is log-linear; knockoff improves with budget and is bounded by query-distribution realism (closed vs open world).
 - (c) *Observed output at attacker/victim:* `results/results.json` is the full reproducible log; server terminals show the victim side.
 - (d) *Countermeasure:* the API-layer defenses in `victim/defenses.py` + `defense_analysis.py`'s quantitative "why" (bonus 10%).
 
 ---
-
-## 5. Member responsibility (edit as needed)
-
-| Part | Owner |
-|---|---|
-| Real Flask HTTP prediction API (undefended + defended) & the API-layer defense placement | *(your name)* |
-| Victim models + training, equation-solving & knockoff attacks, closed/open-world sweep, bonus defense analysis | *(friend's name)* |
-| Integration into the modular client/server layout, report | *(shared)* |
