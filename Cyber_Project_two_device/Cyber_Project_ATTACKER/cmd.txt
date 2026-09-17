@@ -1,0 +1,36 @@
+undefended
+
+venv\Scripts\activate
+
+$env:PYTHONIOENCODING = "utf-8"
+python victim\train_victims.py      *>&1 | Tee-Object results\log_train.txt
+
+$env:PYTHONIOENCODING = "utf-8"
+python victim\victim_api.py         *>&1 | Tee-Object results\log_server_undefended.txt
+
+
+defended
+
+venv\Scripts\activate
+$env:PYTHONIOENCODING = "utf-8"
+python victim\victim_api_defended.py none           *>&1 | Tee-Object results\log_server_defended.txt
+
+
+python -m venv venv
+venv\Scripts\activate
+pip install -r requirements.txt
+$env:VICTIM_UNDEFENDED_URL = "http://10.219.254.169:5000"
+$env:VICTIM_DEFENDED_URL   = "http://10.219.254.169:5001"
+curl "$env:VICTIM_UNDEFENDED_URL/health" -UseBasicParsing 
+
+attacker
+
+venv\Scripts\activate
+$env:PYTHONIOENCODING = "utf-8"
+
+python attacker\demo_query.py            *>&1 | Tee-Object results\log_demo_query.txt
+python attacker\run_experiment.py        *>&1 | Tee-Object results\log_run_experiment.txt
+python attacker\defense_analysis.py      *>&1 | Tee-Object results\log_defense_analysis.txt
+python attacker\arch_transfer_demo.py    *>&1 | Tee-Object results\log_arch_transfer.txt
+python attacker\open_world_demo.py       *>&1 | Tee-Object results\log_open_world.txt
+python attacker\flip_determinism_demo.py *>&1 | Tee-Object results\log_flip_determinism.txt

@@ -1,0 +1,498 @@
+{
+  "victim_linear_accuracy": 0.9010000228881836,
+  "victim_cnn_accuracy": 0.9649999737739563,
+  "input_dim": 784,
+  "n_classes": 10,
+  "transport": "http-flask-api",
+  "honest_accuracy_cnn": {
+    "no_defense": 0.9649999737739563,
+    "defense_round2": 0.9649999737739563,
+    "defense_topk3": 0.9649999737739563,
+    "defense_labels_only": 0.9649999737739563,
+    "defense_flip30": 0.6754999756813049
+  },
+  "equation_solving_attack": {
+    "no_defense": [
+      {
+        "budget": 785,
+        "queries_used": 785,
+        "accuracy": 0.901,
+        "fidelity": 1.0
+      },
+      {
+        "budget": 1570,
+        "queries_used": 1570,
+        "accuracy": 0.901,
+        "fidelity": 1.0
+      },
+      {
+        "budget": 3925,
+        "queries_used": 3925,
+        "accuracy": 0.901,
+        "fidelity": 1.0
+      }
+    ],
+    "defense_round2": [
+      {
+        "budget": 785,
+        "queries_used": 785,
+        "accuracy": 0.0885,
+        "fidelity": 0.0955
+      },
+      {
+        "budget": 1570,
+        "queries_used": 1570,
+        "accuracy": 0.301,
+        "fidelity": 0.315
+      },
+      {
+        "budget": 3925,
+        "queries_used": 3925,
+        "accuracy": 0.3295,
+        "fidelity": 0.349
+      }
+    ],
+    "defense_topk3": [
+      {
+        "budget": 785,
+        "queries_used": 785,
+        "accuracy": 0.0595,
+        "fidelity": 0.062
+      },
+      {
+        "budget": 1570,
+        "queries_used": 1570,
+        "accuracy": 0.3175,
+        "fidelity": 0.3265
+      },
+      {
+        "budget": 3925,
+        "queries_used": 3925,
+        "accuracy": 0.289,
+        "fidelity": 0.2975
+      }
+    ],
+    "defense_labels_only": [
+      {
+        "budget": 785,
+        "queries_used": 785,
+        "accuracy": 0.0875,
+        "fidelity": 0.084
+      },
+      {
+        "budget": 1570,
+        "queries_used": 1570,
+        "accuracy": 0.2645,
+        "fidelity": 0.273
+      },
+      {
+        "budget": 3925,
+        "queries_used": 3925,
+        "accuracy": 0.246,
+        "fidelity": 0.2495
+      }
+    ],
+    "defense_flip30": [
+      {
+        "budget": 785,
+        "queries_used": 785,
+        "accuracy": 0.1185,
+        "fidelity": 0.1185
+      },
+      {
+        "budget": 1570,
+        "queries_used": 1570,
+        "accuracy": 0.259,
+        "fidelity": 0.207
+      },
+      {
+        "budget": 3925,
+        "queries_used": 3925,
+        "accuracy": 0.2385,
+        "fidelity": 0.189
+      }
+    ]
+  },
+  "knockoff_attack": {
+    "no_defense": {
+      "closed": [
+        {
+          "budget": 100,
+          "mode": "closed",
+          "arch": "cnn",
+          "accuracy": 0.191,
+          "fidelity": 0.19099999964237213
+        },
+        {
+          "budget": 300,
+          "mode": "closed",
+          "arch": "cnn",
+          "accuracy": 0.668,
+          "fidelity": 0.6765000224113464
+        },
+        {
+          "budget": 800,
+          "mode": "closed",
+          "arch": "cnn",
+          "accuracy": 0.8535,
+          "fidelity": 0.8709999918937683
+        },
+        {
+          "budget": 2000,
+          "mode": "closed",
+          "arch": "cnn",
+          "accuracy": 0.917,
+          "fidelity": 0.9350000023841858
+        },
+        {
+          "budget": 4000,
+          "mode": "closed",
+          "arch": "cnn",
+          "accuracy": 0.939,
+          "fidelity": 0.9580000042915344
+        }
+      ],
+      "open": [
+        {
+          "budget": 100,
+          "mode": "open",
+          "arch": "cnn",
+          "accuracy": 0.1075,
+          "fidelity": 0.10750000178813934
+        },
+        {
+          "budget": 300,
+          "mode": "open",
+          "arch": "cnn",
+          "accuracy": 0.1075,
+          "fidelity": 0.10750000178813934
+        },
+        {
+          "budget": 800,
+          "mode": "open",
+          "arch": "cnn",
+          "accuracy": 0.1075,
+          "fidelity": 0.10750000178813934
+        },
+        {
+          "budget": 2000,
+          "mode": "open",
+          "arch": "cnn",
+          "accuracy": 0.1075,
+          "fidelity": 0.10750000178813934
+        },
+        {
+          "budget": 4000,
+          "mode": "open",
+          "arch": "cnn",
+          "accuracy": 0.1075,
+          "fidelity": 0.10750000178813934
+        }
+      ]
+    },
+    "defense_round2": {
+      "closed": [
+        {
+          "budget": 100,
+          "mode": "closed",
+          "arch": "cnn",
+          "accuracy": 0.191,
+          "fidelity": 0.19099999964237213
+        },
+        {
+          "budget": 300,
+          "mode": "closed",
+          "arch": "cnn",
+          "accuracy": 0.668,
+          "fidelity": 0.6765000224113464
+        },
+        {
+          "budget": 800,
+          "mode": "closed",
+          "arch": "cnn",
+          "accuracy": 0.853,
+          "fidelity": 0.8709999918937683
+        },
+        {
+          "budget": 2000,
+          "mode": "closed",
+          "arch": "cnn",
+          "accuracy": 0.916,
+          "fidelity": 0.9340000152587891
+        },
+        {
+          "budget": 4000,
+          "mode": "closed",
+          "arch": "cnn",
+          "accuracy": 0.9395,
+          "fidelity": 0.9585000276565552
+        }
+      ],
+      "open": [
+        {
+          "budget": 100,
+          "mode": "open",
+          "arch": "cnn",
+          "accuracy": 0.1075,
+          "fidelity": 0.10750000178813934
+        },
+        {
+          "budget": 300,
+          "mode": "open",
+          "arch": "cnn",
+          "accuracy": 0.1075,
+          "fidelity": 0.10750000178813934
+        },
+        {
+          "budget": 800,
+          "mode": "open",
+          "arch": "cnn",
+          "accuracy": 0.1075,
+          "fidelity": 0.10750000178813934
+        },
+        {
+          "budget": 2000,
+          "mode": "open",
+          "arch": "cnn",
+          "accuracy": 0.1075,
+          "fidelity": 0.10750000178813934
+        },
+        {
+          "budget": 4000,
+          "mode": "open",
+          "arch": "cnn",
+          "accuracy": 0.1075,
+          "fidelity": 0.10750000178813934
+        }
+      ]
+    },
+    "defense_topk3": {
+      "closed": [
+        {
+          "budget": 100,
+          "mode": "closed",
+          "arch": "cnn",
+          "accuracy": 0.191,
+          "fidelity": 0.19099999964237213
+        },
+        {
+          "budget": 300,
+          "mode": "closed",
+          "arch": "cnn",
+          "accuracy": 0.668,
+          "fidelity": 0.6765000224113464
+        },
+        {
+          "budget": 800,
+          "mode": "closed",
+          "arch": "cnn",
+          "accuracy": 0.8535,
+          "fidelity": 0.8709999918937683
+        },
+        {
+          "budget": 2000,
+          "mode": "closed",
+          "arch": "cnn",
+          "accuracy": 0.917,
+          "fidelity": 0.9350000023841858
+        },
+        {
+          "budget": 4000,
+          "mode": "closed",
+          "arch": "cnn",
+          "accuracy": 0.939,
+          "fidelity": 0.9580000042915344
+        }
+      ],
+      "open": [
+        {
+          "budget": 100,
+          "mode": "open",
+          "arch": "cnn",
+          "accuracy": 0.1075,
+          "fidelity": 0.10750000178813934
+        },
+        {
+          "budget": 300,
+          "mode": "open",
+          "arch": "cnn",
+          "accuracy": 0.1075,
+          "fidelity": 0.10750000178813934
+        },
+        {
+          "budget": 800,
+          "mode": "open",
+          "arch": "cnn",
+          "accuracy": 0.1075,
+          "fidelity": 0.10750000178813934
+        },
+        {
+          "budget": 2000,
+          "mode": "open",
+          "arch": "cnn",
+          "accuracy": 0.1075,
+          "fidelity": 0.10750000178813934
+        },
+        {
+          "budget": 4000,
+          "mode": "open",
+          "arch": "cnn",
+          "accuracy": 0.1075,
+          "fidelity": 0.10750000178813934
+        }
+      ]
+    },
+    "defense_labels_only": {
+      "closed": [
+        {
+          "budget": 100,
+          "mode": "closed",
+          "arch": "cnn",
+          "accuracy": 0.191,
+          "fidelity": 0.19099999964237213
+        },
+        {
+          "budget": 300,
+          "mode": "closed",
+          "arch": "cnn",
+          "accuracy": 0.668,
+          "fidelity": 0.6765000224113464
+        },
+        {
+          "budget": 800,
+          "mode": "closed",
+          "arch": "cnn",
+          "accuracy": 0.8535,
+          "fidelity": 0.8709999918937683
+        },
+        {
+          "budget": 2000,
+          "mode": "closed",
+          "arch": "cnn",
+          "accuracy": 0.917,
+          "fidelity": 0.9350000023841858
+        },
+        {
+          "budget": 4000,
+          "mode": "closed",
+          "arch": "cnn",
+          "accuracy": 0.939,
+          "fidelity": 0.9580000042915344
+        }
+      ],
+      "open": [
+        {
+          "budget": 100,
+          "mode": "open",
+          "arch": "cnn",
+          "accuracy": 0.1075,
+          "fidelity": 0.10750000178813934
+        },
+        {
+          "budget": 300,
+          "mode": "open",
+          "arch": "cnn",
+          "accuracy": 0.1075,
+          "fidelity": 0.10750000178813934
+        },
+        {
+          "budget": 800,
+          "mode": "open",
+          "arch": "cnn",
+          "accuracy": 0.1075,
+          "fidelity": 0.10750000178813934
+        },
+        {
+          "budget": 2000,
+          "mode": "open",
+          "arch": "cnn",
+          "accuracy": 0.1075,
+          "fidelity": 0.10750000178813934
+        },
+        {
+          "budget": 4000,
+          "mode": "open",
+          "arch": "cnn",
+          "accuracy": 0.1075,
+          "fidelity": 0.10750000178813934
+        }
+      ]
+    },
+    "defense_flip30": {
+      "closed": [
+        {
+          "budget": 100,
+          "mode": "closed",
+          "arch": "cnn",
+          "accuracy": 0.185,
+          "fidelity": 0.15950000286102295
+        },
+        {
+          "budget": 300,
+          "mode": "closed",
+          "arch": "cnn",
+          "accuracy": 0.608,
+          "fidelity": 0.44600000977516174
+        },
+        {
+          "budget": 800,
+          "mode": "closed",
+          "arch": "cnn",
+          "accuracy": 0.767,
+          "fidelity": 0.5525000095367432
+        },
+        {
+          "budget": 2000,
+          "mode": "closed",
+          "arch": "cnn",
+          "accuracy": 0.8965,
+          "fidelity": 0.6384999752044678
+        },
+        {
+          "budget": 4000,
+          "mode": "closed",
+          "arch": "cnn",
+          "accuracy": 0.9255,
+          "fidelity": 0.6570000052452087
+        }
+      ],
+      "open": [
+        {
+          "budget": 100,
+          "mode": "open",
+          "arch": "cnn",
+          "accuracy": 0.1075,
+          "fidelity": 0.10199999809265137
+        },
+        {
+          "budget": 300,
+          "mode": "open",
+          "arch": "cnn",
+          "accuracy": 0.1075,
+          "fidelity": 0.10199999809265137
+        },
+        {
+          "budget": 800,
+          "mode": "open",
+          "arch": "cnn",
+          "accuracy": 0.1075,
+          "fidelity": 0.10199999809265137
+        },
+        {
+          "budget": 2000,
+          "mode": "open",
+          "arch": "cnn",
+          "accuracy": 0.1075,
+          "fidelity": 0.10199999809265137
+        },
+        {
+          "budget": 4000,
+          "mode": "open",
+          "arch": "cnn",
+          "accuracy": 0.1075,
+          "fidelity": 0.10199999809265137
+        }
+      ]
+    }
+  }
+}
