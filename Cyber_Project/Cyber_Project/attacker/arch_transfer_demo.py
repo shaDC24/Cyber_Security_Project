@@ -1,8 +1,3 @@
-"""
-attacker/arch_transfer_demo.py
-python attacker/arch_transfer_demo.py
-"""
-
 import json
 import os
 import sys

@@ -1,12 +1,3 @@
-"""
-common/train_utils.py
-----------------------
-Self-contained supervised training + evaluation helpers (no external training
-library -- plain PyTorch loop with the Adam optimizer). Shared by:
-  * victim/train_victims.py   (trains the victim models)
-  * attacker/attack_knockoff.py (trains the attacker's substitute model)
-"""
-
 import torch
 import torch.nn as nn
 

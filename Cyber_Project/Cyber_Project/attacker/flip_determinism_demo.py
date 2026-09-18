@@ -27,7 +27,6 @@ def main():
     _, _, X_test, y_test = load_mnist_tensors(n_train=1, n_test=N_IMAGES, seed=42)
     y_true = y_test.cpu().numpy()
 
-    # Victim's TRUE (undefended) top-1 labels -- the target an attacker wants.
     plain = RemoteOracle(UNDEFENDED_URL, "cnn", defense_spec=None)
     victim_labels = plain.query(X_test).argmax(dim=1).cpu().numpy()
 
@@ -39,13 +38,11 @@ def main():
           f"images={N_IMAGES})")
     print("=" * 70)
 
-    # ---- collect R repeated responses for the SAME images -----------------
     repeated = []
     for _ in range(REPEATS):
         repeated.append(flip.query(X_test).argmax(dim=1).cpu().numpy())
     repeated = np.stack(repeated, axis=0)            # (REPEATS, N_IMAGES)
 
-    # Check 1 -- determinism: across the R repeats, does any image ever change?
     changed_per_image = (repeated != repeated[0:1]).any(axis=0)   # (N_IMAGES,)
     n_changed = int(changed_per_image.sum())
     first_resp = repeated[0]
@@ -58,7 +55,7 @@ def main():
     print(f"  fraction of labels flipped vs true victim label   : "
           f"{frac_flipped:.3f}  (target ~= epsilon = {EPSILON})")
 
-    # Check 2 -- majority vote over the R REAL (deterministic) responses.
+   
     maj_real = _majority(repeated)
     acc_single = float((first_resp == victim_labels).mean())
     acc_maj_real = float((maj_real == victim_labels).mean())
@@ -68,7 +65,7 @@ def main():
     print(f"  -> gain from re-querying: {acc_maj_real - acc_single:+.3f} "
           f"({'no gain -> defense holds' if acc_maj_real - acc_single < 1e-9 else 'gain!'})")
 
-    # Check 3 -- contrast with a NAIVE (per-query random) flip, simulated locally.
+   
     rng = np.random.RandomState(0)
     sim = np.empty((REPEATS, N_IMAGES), dtype=np.int64)
     for r in range(REPEATS):
@@ -95,7 +92,7 @@ def main():
 
 
 def _majority(mat):
-    """Column-wise majority vote over a (R, N) int matrix -> (N,)."""
+
     R, N = mat.shape
     out = np.empty(N, dtype=np.int64)
     for i in range(N):

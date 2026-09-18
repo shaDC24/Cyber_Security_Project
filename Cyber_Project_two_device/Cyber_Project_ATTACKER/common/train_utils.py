@@ -1,21 +1,10 @@
-"""
-common/train_utils.py
-----------------------
-Self-contained supervised training + evaluation helpers (no external training
-library -- plain PyTorch loop with the Adam optimizer). Shared by:
-  * victim/train_victims.py   (trains the victim models)
-  * attacker/attack_knockoff.py (trains the attacker's substitute model)
-"""
-
 import torch
 import torch.nn as nn
 
 
 def train_model(model, X_train, y_train, epochs=5, batch_size=128, lr=1e-3,
                 weight_decay=0.0, device="cpu", verbose=True):
-    """Plain SGD-style loop with Adam + CrossEntropyLoss.
 
-    y_train are integer class labels (hard labels)."""
     model.to(device)
     model.train()
     opt = torch.optim.Adam(model.parameters(), lr=lr, weight_decay=weight_decay)

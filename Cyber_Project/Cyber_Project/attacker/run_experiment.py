@@ -24,13 +24,12 @@ N_CLASSES = 10
 UNDEFENDED_URL = os.environ.get("VICTIM_UNDEFENDED_URL", "http://localhost:5000")
 DEFENDED_URL = os.environ.get("VICTIM_DEFENDED_URL", "http://localhost:5001")
 
-# scenario name -> (server url, defense spec sent to that server)
+
 SCENARIOS = {
     "no_defense":          (UNDEFENDED_URL, None),
     "defense_round2":      (DEFENDED_URL, {"mode": "round", "decimals": 2}),
     "defense_topk3":       (DEFENDED_URL, {"mode": "topk", "k": 3}),
     "defense_labels_only": (DEFENDED_URL, {"mode": "label_only"}),
-    # label-perturbation defense: the one that actually hurts knockoff
     "defense_flip30":      (DEFENDED_URL, {"mode": "flip", "epsilon": 0.3}),
 }
 

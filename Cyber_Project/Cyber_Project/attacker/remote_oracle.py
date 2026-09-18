@@ -19,7 +19,7 @@ class RemoteOracle:
         self.timeout = timeout
         self.num_queries = 0
 
-    # ---- helpers -------------------------------------------------------
+ 
     def _post(self, imgs_list):
         payload = {"images": imgs_list}
         if self.defense_spec is not None:
@@ -43,7 +43,7 @@ class RemoteOracle:
                 time.sleep(delay)
         raise RuntimeError(f"victim API at {self.base_url} not reachable: {last}")
 
-    # ---- black-box interface ------------------------------------------
+   
     def query(self, X):
         """X: (N,1,28,28) float tensor in [0,1]. Returns (N,n_classes) probs."""
         if not torch.is_tensor(X):

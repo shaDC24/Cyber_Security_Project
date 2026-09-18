@@ -1,19 +1,3 @@
-"""
-common/data_mnist.py
----------------------
-Loads the real MNIST handwritten-digit dataset (60,000 train / 10,000 test
-28x28 grayscale images, 10 classes) as PyTorch tensors.
-
-Tries the standard `torchvision.datasets.MNIST` auto-download first (this is
-what will normally happen on your own laptop/lab machine with full internet
-access, and the raw files are already shipped in data/MNIST/raw so no network
-is needed at all). If that is blocked, it falls back to downloading the exact
-same official MNIST files from a public GitHub mirror and parses the raw IDX
-file format by hand -- no torchvision dataset classes in the fallback path,
-only plain gzip + struct parsing, so this is still "our own code" reading the
-data, not a borrowed data-loading pipeline.
-"""
-
 import gzip
 import os
 import struct
@@ -71,10 +55,7 @@ def _load_via_mirror(cache_dir):
 
 
 def _load_via_local_raw(root):
-    """Read the MNIST IDX files SHIPPED in data/MNIST/raw directly, with our own
-    gzip+struct parser -- no torchvision, no network. This is the "hand-written
-    IDX-parser fallback" promised in the design report and is what makes the
-    README's "shipped, no download needed" claim actually true offline."""
+
     raw = os.path.join(root, "MNIST", "raw")
     fmap = {
         "train_images": "train-images-idx3-ubyte",
@@ -113,7 +94,7 @@ def _load_via_local_raw(root):
 
 
 def _load_via_torchvision(root):
-    from torchvision import datasets  # local import: optional dependency path
+    from torchvision import datasets 
     train_ds = datasets.MNIST(root=root, train=True, download=True)
     test_ds = datasets.MNIST(root=root, train=False, download=True)
     X_train = train_ds.data.numpy()
@@ -124,20 +105,11 @@ def _load_via_torchvision(root):
 
 
 def load_mnist_tensors(root=None, n_train=None, n_test=None, seed=0):
-    """Returns (X_train, y_train, X_test, y_test) as torch tensors.
 
-    X_* have shape (N, 1, 28, 28), float32, pixel values scaled to [0, 1].
-    y_* have shape (N,), int64 class labels 0-9.
-
-    n_train / n_test optionally subsample (with a fixed seed) to keep
-    training times reasonable on CPU-only machines while still using 100%
-    REAL MNIST images (never synthetic).
-    """
     if root is None:
         root = DATA_DIR
     cache_dir = os.path.join(root, "MNIST_mirror_raw")
-    # Order: (1) shipped local raw files (offline, hand-written parser) ->
-    #        (2) torchvision loader -> (3) GitHub mirror download.
+
     try:
         print("[data_mnist] Trying shipped local data/MNIST/raw (offline IDX parser) ...")
         X_train, y_train, X_test, y_test = _load_via_local_raw(root)
@@ -180,25 +152,12 @@ def make_loader(X, y, batch_size=128, shuffle=True):
     return torch.utils.data.DataLoader(ds, batch_size=batch_size, shuffle=shuffle)
 
 
-# --------------------------------------------------------------------------
-# Fashion-MNIST loader -- used ONLY as an attacker-side "open-world" transfer
-# pool of REAL, but out-of-distribution, 28x28 images (clothing, not digits).
-# This lets the knockoff attack reproduce Orekondy et al.'s stronger open-world
-# result: querying a DIFFERENT REAL distribution still steals functionality,
-# unlike pure random noise. Same IDX format as MNIST, so the same hand-written
-# parser is reused. We only need the images (pixels), never the labels.
-# --------------------------------------------------------------------------
 FASHION_MIRROR = "https://raw.githubusercontent.com/zalandoresearch/fashion-mnist/master/data/fashion/"
 FASHION_TRAIN_IMAGES = "train-images-idx3-ubyte.gz"
 
 
 def load_fashion_pool(root=None, n_pool=5000, seed=0):
-    """Return (n_pool, 1, 28, 28) float32 Fashion-MNIST images in [0,1].
 
-    Tries the shipped data/FashionMNIST/raw first, else downloads the single
-    train-images file from the official Zalando GitHub mirror and caches it.
-    Only pixels are returned -- the attacker uses these purely as query inputs.
-    """
     if root is None:
         root = DATA_DIR
     local_raw = os.path.join(root, "FashionMNIST", "raw")

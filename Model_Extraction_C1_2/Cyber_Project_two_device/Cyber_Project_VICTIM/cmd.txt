@@ -1,0 +1,19 @@
+train victim model
+
+python -m venv venv
+venv\Scripts\activate
+pip install -r requirements.txt
+
+python victim\train_victims.py      
+
+undefended
+
+venv\Scripts\activate
+python victim\victim_api.py       
+
+
+defended
+
+venv\Scripts\activate
+python victim\victim_api_defended.py none       
+

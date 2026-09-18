@@ -1,0 +1,114 @@
+% ===================================================================
+%  FIGURE 1 -- patient flow  (fixed version)
+%  Compiles clean with the preamble already in main.tex
+%  (needs: tikz + arrows.meta, positioning, shapes.geometric, calc;
+%   colors c1 and c2 are already defined there)
+%
+%  What changed vs. the previous version:
+%   * every connector is black; colour is now only on the three decision
+%     nodes' borders and on the parameter annotations
+%   * arrowheads no longer land on zero-length or 2 mm segments -- every
+%     arrow has at least 5 mm of straight run before its head
+%   * no "++(0,-0.45) -|" relative hops; junctions are explicit coordinates
+%   * the stray arrow that pointed into a text label is gone
+%   * rounded corners removed from paths (they were clipping the heads)
+% ===================================================================
+
+\begin{figure}[t]
+\centering
+\resizebox{\columnwidth}{!}{%
+\begin{tikzpicture}[
+  font=\scriptsize, x=1cm, y=1cm, line cap=round, line join=round,
+  box/.style={draw=black, fill=white, rounded corners=3pt, line width=0.9pt,
+              align=center, inner sep=5pt, minimum height=8mm},
+  dev/.style={box, text width=15mm, minimum height=14mm},
+  dec/.style={draw=c1, fill=white, line width=1.1pt, align=center,
+              inner sep=2pt, diamond, aspect=2.1},
+  sel/.style={box, draw=c1, line width=1.1pt, text width=46mm},
+  fl/.style={-{Stealth[length=2.4mm,width=1.8mm]}, draw=black, line width=0.9pt},
+  ln/.style={draw=black, line width=0.9pt},
+  lb/.style={font=\scriptsize, inner sep=2pt, fill=white,
+             fill opacity=0.9, text opacity=1},
+  note/.style={font=\scriptsize, text=c2},
+]
+
+% ---------- nodes ----------
+\node[box] (arr)  at ( 0.00,   0.00) {\textbf{Arrival \& triage} \\[1pt] $\lambda_{d,h}$};
+\node[box] (q3)   at (-1.85,  -1.65) {$Q^{t}_{init,3}$ \\[1pt] \textcolor{c2}{Level III, $0.25$}};
+\node[box] (q4)   at ( 1.85,  -1.65) {$Q^{t}_{init,4}$ \\[1pt] \textcolor{c2}{Level IV, $0.75$}};
+\node[box] (pol)  at ( 0.00,  -3.55) {\textbf{Scheduling policy} \\[1pt] IFP / ALT / SBP$(k_1,k_2)$};
+\node[box] (doc)  at ( 0.00,  -5.05) {\textbf{Physician pool} $R^{t}$ \textcolor{c2}{(5/5/3)}};
+\node[box] (cons) at ( 0.00,  -6.50) {\textbf{Consultation} \\[1pt] \textcolor{c2}{mean $9$ / $15$ min}};
+\node[dec] (need) at ( 0.00,  -8.20) {needs\\test?};
+\node[box] (disc) at ( 3.05,  -8.20) {Discharge};
+\node[sel] (sel)  at ( 0.00,  -9.95) {\textbf{Select next test} \\[2pt]
+                                      $j^{\star}=\arg\min_{j\in\mathcal{R}_i(t)} n_j(t)\,\tau_j$};
+\node[dev] (dlab) at (-2.85, -12.35) {\textbf{Lab} \\[1pt] $p{=}0.92$ \\ $\tau{=}1.19$ \\ $\delta{=}20$};
+\node[dev] (dus)  at (-0.95, -12.35) {\textbf{Ultrasound} \\[1pt] $p{=}0.22$ \\ $\tau{=}6.58$ \\ $\delta{=}0$};
+\node[dev] (dxr)  at ( 0.95, -12.35) {\textbf{X-ray} \\[1pt] $p{=}0.29$ \\ $\tau{=}3.99$ \\ $\delta{=}30$};
+\node[dev] (dct)  at ( 2.85, -12.35) {\textbf{CT} \\[1pt] $p{=}0.55$ \\ $\tau{=}2.45$ \\ $\delta{=}30$};
+\node[dec] (rem)  at ( 0.00, -14.70) {tests\\left?};
+\node[box] (fq)   at ( 0.00, -16.55) {$Q^{t}_{follow}$ \\[1pt] \textcolor{c2}{follow-up queue}};
+
+% ---------- triage split ----------
+\draw[fl] (arr.south) -| (q3.north);
+\draw[fl] (arr.south) -| (q4.north);
+
+% ---------- queues merge into the policy ----------
+\draw[ln] (q3.south) -- (-1.85,-2.60);
+\draw[ln] (q4.south) -- ( 1.85,-2.60);
+\draw[ln] (-1.85,-2.60) -- (1.85,-2.60);
+\draw[fl] (0,-2.60) -- (pol.north);
+
+% ---------- physician subsystem ----------
+\draw[fl] (pol)  -- (doc);
+\draw[fl] (doc)  -- (cons);
+\draw[fl] (cons) -- (need);
+\draw[fl] (need.east) -- node[lb,above] {no} (disc.west);
+\draw[fl] (need.south) -- node[lb,right,pos=0.55] {yes, $p=0.60$} (sel.north);
+
+% ---------- four testing stations, one queue each ----------
+\node[note,anchor=south] at (1.95,-11.00) {four queues, one server each};
+\draw[ln] (sel.south) -- (0,-11.20);
+\draw[ln] (-2.85,-11.20) -- (2.85,-11.20);
+\draw[fl] (-2.85,-11.20) -- (dlab.north);
+\draw[fl] (-0.95,-11.20) -- (dus.north);
+\draw[fl] ( 0.95,-11.20) -- (dxr.north);
+\draw[fl] ( 2.85,-11.20) -- (dct.north);
+
+\draw[ln] (dlab.south) -- (-2.85,-13.65);
+\draw[ln] (dus.south)  -- (-0.95,-13.65);
+\draw[ln] (dxr.south)  -- ( 0.95,-13.65);
+\draw[ln] (dct.south)  -- ( 2.85,-13.65);
+\draw[ln] (-2.85,-13.65) -- (2.85,-13.65);
+\draw[fl] (0,-13.65) -- (rem.north);
+
+% ---------- re-decide for the next test ----------
+\draw[ln] (rem.east) -- node[lb,above] {yes} (4.55,-14.70);
+\draw[ln] (4.55,-14.70) -- (4.55,-9.95);
+\draw[fl] (4.55,-9.95) -- (sel.east);
+
+% ---------- back to the physicians ----------
+\draw[fl] (rem.south)
+      -- node[lb,right,pos=0.45] {no, at $\max_j(t^{\mathrm{done}}_j+\delta_j)$}
+         (fq.north);
+\draw[ln] (fq.west) -- (-4.55,-16.55);
+\draw[ln] (-4.55,-16.55)
+      -- node[lb,rotate=90,above,pos=0.62] {return for follow-up consultation}
+         (-4.55,-3.55);
+\draw[fl] (-4.55,-3.55) -- (pol.west);
+
+\end{tikzpicture}}
+\caption{Patient flow. Three queues compete for one shift-varying physician
+pool, and the scheduling policy decides who is seen next. A patient sent for
+diagnostics enters the testing subsystem, where each of the four stations
+holds its own queue and serves one patient at a time. Before every remaining
+test the patient re-checks the stations still on their list $\mathcal{R}_i(t)$
+and joins the one with the smallest $n_j(t)\,\tau_j$, where $n_j(t)$ counts
+the patient in service plus those waiting. Under the fixed-order rule the same
+box is instead a sequence settled once, descending $\delta_j$
+(Fig.~\ref{fig:rules}). The patient returns to the physicians through the
+follow-up queue once the last ordered result has reported. Blue marks the
+three decision points.}
+\label{fig:flow}
+\end{figure}

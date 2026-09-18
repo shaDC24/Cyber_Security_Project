@@ -1,0 +1,116 @@
+{
+  "victim_cnn_accuracy": 0.9649999737739563,
+  "results": {
+    "closed": [
+      {
+        "budget": 100,
+        "mode": "closed",
+        "arch": "cnn",
+        "accuracy": 0.191,
+        "fidelity": 0.19099999964237213
+      },
+      {
+        "budget": 300,
+        "mode": "closed",
+        "arch": "cnn",
+        "accuracy": 0.668,
+        "fidelity": 0.6765000224113464
+      },
+      {
+        "budget": 800,
+        "mode": "closed",
+        "arch": "cnn",
+        "accuracy": 0.8535,
+        "fidelity": 0.8709999918937683
+      },
+      {
+        "budget": 2000,
+        "mode": "closed",
+        "arch": "cnn",
+        "accuracy": 0.917,
+        "fidelity": 0.9350000023841858
+      },
+      {
+        "budget": 4000,
+        "mode": "closed",
+        "arch": "cnn",
+        "accuracy": 0.939,
+        "fidelity": 0.9580000042915344
+      }
+    ],
+    "open": [
+      {
+        "budget": 100,
+        "mode": "open",
+        "arch": "cnn",
+        "accuracy": 0.1075,
+        "fidelity": 0.10750000178813934
+      },
+      {
+        "budget": 300,
+        "mode": "open",
+        "arch": "cnn",
+        "accuracy": 0.1075,
+        "fidelity": 0.10750000178813934
+      },
+      {
+        "budget": 800,
+        "mode": "open",
+        "arch": "cnn",
+        "accuracy": 0.1075,
+        "fidelity": 0.10750000178813934
+      },
+      {
+        "budget": 2000,
+        "mode": "open",
+        "arch": "cnn",
+        "accuracy": 0.1075,
+        "fidelity": 0.10750000178813934
+      },
+      {
+        "budget": 4000,
+        "mode": "open",
+        "arch": "cnn",
+        "accuracy": 0.1075,
+        "fidelity": 0.10750000178813934
+      }
+    ],
+    "open_real": [
+      {
+        "budget": 100,
+        "mode": "open_real",
+        "arch": "cnn",
+        "accuracy": 0.1075,
+        "fidelity": 0.10750000178813934
+      },
+      {
+        "budget": 300,
+        "mode": "open_real",
+        "arch": "cnn",
+        "accuracy": 0.1225,
+        "fidelity": 0.12349999696016312
+      },
+      {
+        "budget": 800,
+        "mode": "open_real",
+        "arch": "cnn",
+        "accuracy": 0.223,
+        "fidelity": 0.22599999606609344
+      },
+      {
+        "budget": 2000,
+        "mode": "open_real",
+        "arch": "cnn",
+        "accuracy": 0.3485,
+        "fidelity": 0.3569999933242798
+      },
+      {
+        "budget": 4000,
+        "mode": "open_real",
+        "arch": "cnn",
+        "accuracy": 0.549,
+        "fidelity": 0.5615000128746033
+      }
+    ]
+  }
+}

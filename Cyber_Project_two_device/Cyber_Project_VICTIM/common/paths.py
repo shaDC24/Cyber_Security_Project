@@ -1,11 +1,3 @@
-"""
-common/paths.py
-----------------
-Central place for the project's directory layout so every script works no
-matter which folder you launch it from. ROOT is the project root (the folder
-that contains common/, victim/, attacker/, models/, data/, results/).
-"""
-
 import os
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

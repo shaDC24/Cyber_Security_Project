@@ -1,7 +1,3 @@
-"""
-attacker/attack_equation_solving.py
-"""
-
 import numpy as np
 import torch
 
